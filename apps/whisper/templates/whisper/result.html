@@ -1,0 +1,10 @@
+<h2>文字起こし結果</h2>
+<p>{{ text }}</p>
+
+<h3>アップロードした音声を再生:</h3>
+<audio controls>
+  <source src="{{ url_for('whisper.uploaded_file', filename=filename) }}" type="audio/mpeg">
+  ブラウザが audio タグをサポートしていません。
+</audio>
+
+<a href="{{ url_for('whisper.upload_audio') }}">もう一度アップロード</a>

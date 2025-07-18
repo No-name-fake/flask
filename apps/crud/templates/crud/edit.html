@@ -1,0 +1,54 @@
+{% extends "crud/base.html" %}
+{% block title %}ユーザー編集{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background: #f9f9f9;">
+  <h2 style="text-align: center;">ユーザー編集</h2>
+
+  <form action="{{ url_for('crud.edit_user', user_id=user.id) }}" method="POST" novalidate>
+    {{ form.csrf_token }}
+
+    <div style="margin-bottom: 15px; text-align: center;">
+      <label style="display: block; text-align: left; width: 90%; margin: 0 auto;">
+        {{ form.username.label }}
+      </label>
+      {{ form.username(style="width: 90%; padding: 6px; font-size: 14px;", placeholder='ユーザー名') }}
+      {% for error in form.username.errors %}
+        <div style="color: red; text-align: left; width: 90%; margin: 4px auto;">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 15px; text-align: center;">
+      <label style="display: block; text-align: left; width: 90%; margin: 0 auto;">
+        {{ form.email.label }}
+      </label>
+      {{ form.email(style="width: 90%; padding: 6px; font-size: 14px;", placeholder='メールアドレス') }}
+      {% for error in form.email.errors %}
+        <div style="color: red; text-align: left; width: 90%; margin: 4px auto;">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div style="margin-bottom: 15px; text-align: center;">
+      <label style="display: block; text-align: left; width: 90%; margin: 0 auto;">
+        {{ form.password.label }}
+      </label>
+      {{ form.password(style="width: 90%; padding: 6px; font-size: 14px;", placeholder='パスワード') }}
+      {% for error in form.password.errors %}
+        <div style="color: red; text-align: left; width: 90%; margin: 4px auto;">{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-bottom: 10px;">
+      <input type="submit" value="更新" style="width: 90%; padding: 8px; font-size: 14px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" />
+    </div>
+  </form>
+
+  <form action="{{ url_for('crud.delete_user', user_id=user.id) }}" method="POST" novalidate style="text-align: center;">
+    {{ form.csrf_token }}
+    <input type="submit" value="削除" style="width: 90%; padding: 8px; font-size: 14px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;" />
+  </form>
+</div>
+<div style="text-align: center; margin-top: 10px;">
+<a href="{{ url_for('crud.users') }}" style="display: inline-block; padding: 8px 16px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px;">戻る</a>
+</div>
+{% endblock %}

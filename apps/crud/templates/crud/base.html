@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}My App{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('crud.static', filename='style.css') }}" />
+  <style>
+    /* ナビゲーションバーのスタイル */
+    nav {
+      background-color: #333;
+      padding: 10px 20px;
+      color: white;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav a {
+      color: #ccc;
+      margin-left: 12px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    nav .user-info {
+      display: flex;
+      align-items: center;
+    }
+
+    nav .user-info strong {
+      margin-left: 4px;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      {% if current_user.is_authenticated %}
+        <div class="user-info">
+          ログイン中のユーザー：<strong>{{ current_user.username }}</strong>
+        </div>
+        <a href="{{ url_for('crud.users') }}">アカウント</a>
+        <a href="{{ url_for('auth.logout') }}">ログアウト</a>
+      {% else %}
+        <div>
+          <a href="{{ url_for('auth.login') }}">ログイン</a>
+          <a href="{{ url_for('auth.signup') }}">新規登録</a>
+        </div>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
